@@ -3,7 +3,13 @@ export function pointCapture(view, mode) {
 }
 export function updateGGB(slope, index) {
     ggbApplet.setValue(`B${index}`, slope);
-    ggbApplet2.evaluateCommand(`C_${index} = (A${index}, B${index})`);
+    ggbApplet2.evalCommand(`C_${index} = (A${index}, B${index})`);
+}
+
+export function setPerspective(text, app) {
+    if (app === 1) {
+        ggbApplet.setPerspective(text);
+    } else ggbApplet2.setPerspective(text);
 }
 
 export function getRoundedValue(obj) {

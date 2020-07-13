@@ -94,18 +94,19 @@ textarea {
     max-width: 700px;
 }
 #ggbApplet {
-    width: 700px;
-    height: 550px;
+    width: 500px;
+    height: 450px;
     border: 2px solid black;
+    margin-left: 1em;
 }
 
 #ggbApplet2 {
-    width: 700px;
-    height: 550px;
+    width: 500px;
+    height: 450px;
     border: 2px solid black;
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1000px) {
     .container {
         display: grid;
         grid-template-columns: 1fr 1fr;

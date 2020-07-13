@@ -1,4 +1,4 @@
-import { parameters, views } from './configGeo';
+import { parameters, parameters2, views } from './configGeo';
 // import './intervals'
 import * as ggb from './ggb'
 import '../styles.css'
@@ -6,7 +6,7 @@ import { elements, getInputValue, updateInput, resetDOM } from './UI';
 // import Interval from './intervals';
 
 let ggbApp = new GGBApplet(parameters, '5.0', views);
-let ggbApp2 = new GGBApplet(paramters2, '5.0', views);
+let ggbApp2 = new GGBApplet(parameters2, '5.0', views);
 
 class State {
     constructor() {
@@ -22,7 +22,7 @@ class State {
     }
     addSlope(slope) {
         this.slopes.push(slope);
-        this.index = slopes.length - 1;
+        this.index = this.slopes.length - 1;
     }
 }
 
@@ -39,7 +39,7 @@ function update() {
 function handleKeyPress(e) {
     if (e.keyCode === 13) {
         e.preventDefault();
-        elements.submit1.click();
+        elements.slope.click();
     }
 }
 
