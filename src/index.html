@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <title>The Derivative of the Sine Function</title>
+</head>
+<body>
+    <header>
+        <h1>\[\frac{dy}{dx}\]</h1>
+        <h1>Calculus I</h1>
+        <h1>\[\int_a^b{f(x)dx}\]</h1>
+    </header>
+
+    <main>
+        <article>
+            <h2>The Derivative of the Sine Function</h2>
+            <section class="directions">
+                <h3 id="h_directions">General Directions</h3>
+                <p id="p_directions">In this part, you will once again enter a restriction on the range.  However, this time, we will enter the interval using a center and a radius, and our function will have some issues.  We want to investigate what is happening at these problem points.  There are three new sliders: Zoom, Left Endpt, and Right Endpt. The Zoom slider will allow you to zoom in and out on the point we are currently invesitigating.  The Left and Right Endpoint sliders will move the respective endpoints of the restricted domain.  Clicking on one of these endpoint sliders will allow you to move the endpoint of the interval in increments of 0.001 units.</p>
+            </section>
+            <div class="container">
+                <div class="wrapper">
+                    <div id="ggbApplet"></div>
+                    <div id="ggbApplet2"></div>
+                </div>
+                <div class="wrapper">
+                    <section class="input" id="user_inputPart1">
+                        <h3 id="h3_input">Slope Input</h3>
+                        <p id="p_input">
+                            Enter the slope of the tangent line at \(x=0\):  <input id="slope" placeholder="slope" type="text">><br>
+                            <button id="next">Next Slope</button>
+                        </p>
+                    </section>
+                    <section class="output" id="feedback" style="display: none;">
+                        <h3>Feedback</h3>
+                        <p id="p_feedback"></p>
+                        <p id="p_feedbackBtns1">
+                            <button id="newDom_button">New Range</button>
+                        </p>
+                    </section>
+                </div>
+            </div>
+        </article>
+    </main>
+    <footer>Created by Kevin James</footer>
+</body>
+</html>
