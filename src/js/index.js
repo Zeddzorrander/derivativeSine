@@ -2,7 +2,7 @@ import { parameters, parameters2, views } from './configGeo';
 // import './intervals'
 import * as ggb from './ggb'
 import '../styles.css'
-import { elements, getInputValue, updateInput, drawTable, resetDOM } from './UI';
+import { elements, getInputValue, updateInput, drawTable, clearSlope } from './UI';
 // import Interval from './intervals';
 
 let ggbApp = new GGBApplet(parameters, '5.0', views);
@@ -33,13 +33,14 @@ function update() {
     ggbState.addSlope(slope);
     const index = ggbState.index;
     ggb.updateGGB(slope, index);
-    updateInput(index);
+    updateInput(index, slope);
+    clearSlope();
 }
 
 function handleKeyPress(e) {
     if (e.keyCode === 13) {
         e.preventDefault();
-        elements.slope.click();
+        elements.next.click();
     }
 }
 

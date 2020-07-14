@@ -3,12 +3,16 @@
 export const elements = {
     slope: document.getElementById('slope'),
     next: document.getElementById('next'),
-    tableRef: document.getElementById('tbody')
+    tableRef: document.getElementById('tbody'),
+    xInput: document.getElementById('xInput')
 }
 
-export function updateInput(index) {
-    pInput.innerHTML = `Enter the slope of the tangent line at \\(x=\\dfrac{${index}\\pi}{24}\\):  <input id="slope" placeholder="slope" type="text">><br>
-    <button id="next">Next Slope</button>`
+export function updateInput(index, slope) {
+    let yCell = document.getElementById(`y${index}`);
+    let newText = document.createTextNode(slope);
+    yCell.appendChild(newText);
+    index+=1;
+    elements.xInput.innerHTML = `\\(\\dfrac{${index}\\pi}{12}\\)`;
     MathJax.typeset();
 }
 
@@ -20,6 +24,11 @@ export function drawTable(xVals) {
     xVals.forEach((el, index) => {
         addRow(el, index);
     });
+}
+
+export function clearSlope() {
+    elements.slope.value = '';
+    elements.slope.focus();
 }
 
 function addRow(xVal, index) {
