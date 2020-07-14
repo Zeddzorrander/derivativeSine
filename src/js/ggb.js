@@ -2,8 +2,14 @@ export function pointCapture(view, mode) {
     ggbApplet.setPointCapture(view, mode);
 }
 export function updateGGB(slope, index) {
-    ggbApplet.setValue(`B${index}`, slope);
-    ggbApplet2.evalCommand(`C_${index} = (A${index}, B${index})`);
+    const a = ggbApplet.getValue('a');
+    ggbApplet2.evalCommand(`C_${index} = (${a}, ${slope})`);
+    ggbApplet2.setColor(`C_${index}`, 0,0,0);
+    ggbApplet2.setLabelVisible(`C_${index}`, false);
+    ggbApplet2.setPointStyle(`C_${index}`, 0);
+    ggbApplet2.setPointSize(`C_${index}`, 5);
+    index += 1;
+    ggbApplet.setValue('a', index * Math.PI / 12);
 }
 
 export function setPerspective(text, app) {

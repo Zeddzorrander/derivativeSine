@@ -1,17 +1,9 @@
 
 
 export const elements = {
-    secInput: document.getElementById('user_inputPart1'),
-    pInput: document.getElementById('p_input'),
-    h3Input: document.getElementById('h3_input'),
     slope: document.getElementById('slope'),
     next: document.getElementById('next'),
-    // feedback: document.getElementById('feedback'),
-    // p_feedback: document.getElementById('p_feedback'),
-    // p_feedbackBtn1: document.getElementById('p_feedbackBtns1'),
-    // newBtn1: document.getElementById('newDom_button'),
-    // prevBtn: document.getElementById('prevDom_button'),
-    // nextBtn: document.getElementById('nextDom_button'),
+    tableRef: document.getElementById('tbody')
 }
 
 export function updateInput(index) {
@@ -26,16 +18,14 @@ export function getInputValue(id) {
 
 export function drawTable(xVals) {
     xVals.forEach((el, index) => {
-        addRow('tbody', el, index);
+        addRow(el, index);
     });
 }
 
-function addRow(id, xVal, index) {
-    // Get a reference to the table
-    let tableRef = document.getElementById(id);
-  
+function addRow(xVal, index) {
+    
     // Insert a row at the end of the table
-    let newRow = tableRef.insertRow(-1);
+    let newRow = elements.tableRef.insertRow(-1);
     newRow.id = `row${index}`
   
     // Insert a cell in the row at index 0
