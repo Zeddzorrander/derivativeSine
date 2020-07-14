@@ -1,6 +1,3 @@
-export function pointCapture(view, mode) {
-    ggbApplet.setPointCapture(view, mode);
-}
 export function updateGGB(slope, index) {
     const a = ggbApplet.getValue('a');
     ggbApplet2.evalCommand(`C_${index} = (${a}, ${slope})`);
@@ -12,18 +9,18 @@ export function updateGGB(slope, index) {
     ggbApplet.setValue('a', index * Math.PI / 12);
 }
 
+export function parseSlope(slope) {
+    ggbApplet.evalCommand(`temp = ${slope}`);
+    return getRoundedValue('temp', 2);
+}
 export function deleteSlope(index) {
     index += 1;
     ggbApplet2.deleteObject(`C_${index}`);
     ggbApplet.setValue('a', index * Math.PI / 12);
 }
 
-export function setPerspective(text, app) {
-    if (app === 1) {
-        ggbApplet.setPerspective(text);
-    } else ggbApplet2.setPerspective(text);
+function getRoundedValue(obj, places) {
+    let mult = 10**places;
+    return Math.round(mult * ggbApplet.getValue(obj)) / mult;
 }
 
-export function getRoundedValue(obj) {
-    return Math.round(1000 * parseFloat(ggbApplet.getValue(obj))) / 1000
-}

@@ -33,7 +33,8 @@ class State {
 let ggbState = new State();
 
 function update() {
-    const slope = getInputValue('slope');
+    let slope = getInputValue('slope');
+    slope = ggb.parseSlope(slope);
     ggbState.addSlope(slope);
     const index = ggbState.index;
     ggb.updateGGB(slope, index);
