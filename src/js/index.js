@@ -2,7 +2,7 @@ import { parameters, parameters2, views } from './configGeo';
 // import './intervals'
 import * as ggb from './ggb'
 import '../styles.css'
-import { elements, getInputValue, updateInput, resetDOM } from './UI';
+import { elements, getInputValue, updateInput, drawTable, resetDOM } from './UI';
 // import Interval from './intervals';
 
 let ggbApp = new GGBApplet(parameters, '5.0', views);
@@ -17,7 +17,7 @@ class State {
     }
     popXvalues() {
         for (let i = 0; i < 24; i++) {
-            this.xValues.push(i * Math.PI / 12);
+            this.xValues.push(Math.round(100*(i * Math.PI / 12)) / 100);
         }
     }
     addSlope(slope) {
@@ -49,4 +49,6 @@ window.onload = function() {
     elements.slope.focus();
     elements.next.addEventListener('click', update);
     elements.slope.onkeypress = handleKeyPress;
+    drawTable(ggbState.xValues);
+
 }

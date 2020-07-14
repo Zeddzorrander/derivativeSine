@@ -24,10 +24,28 @@ export function getInputValue(id) {
     return document.getElementById(id).value
 }
 
-export function resetDOM() {
-    elements.feedback.style.display = 'none';
-    elements.secInput1.style.display = 'block';
-    elements.center.value = '';
-    elements.radius.value = '';
-    elements.center.focus();
+export function drawTable(xVals) {
+    xVals.forEach((el, index) => {
+        addRow('tbody', el, index);
+    });
 }
+
+function addRow(id, xVal, index) {
+    // Get a reference to the table
+    let tableRef = document.getElementById(id);
+  
+    // Insert a row at the end of the table
+    let newRow = tableRef.insertRow(-1);
+    newRow.id = `row${index}`
+  
+    // Insert a cell in the row at index 0
+    let newCell = newRow.insertCell(0);
+    let newCell2 = newRow.insertCell(1);
+    newCell2.id = `y${index}`;
+  
+    // Append a text node to the cell
+    let newText = document.createTextNode(xVal);
+    newCell.appendChild(newText);
+  }
+
+
