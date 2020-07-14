@@ -4,7 +4,8 @@ export const elements = {
     slope: document.getElementById('slope'),
     next: document.getElementById('next'),
     tableRef: document.getElementById('tbody'),
-    xInput: document.getElementById('xInput')
+    xInput: document.getElementById('xInput'),
+    back: document.getElementById('back')
 }
 
 export function updateInput(index, slope) {
@@ -14,6 +15,17 @@ export function updateInput(index, slope) {
     index+=1;
     elements.xInput.innerHTML = `\\(\\dfrac{${index}\\pi}{12}\\)`;
     MathJax.typeset();
+    if (index > 0) elements.back.style.visibility = 'visible';
+}
+
+export function deleteLastSlope(index) {
+    if (index < 0) elements.back.style.visibility = 'hidden';
+    index += 1;
+    let yCell = document.getElementById(`y${index}`);
+    yCell.innerHTML = '';
+    elements.xInput.innerHTML = `\\(\\dfrac{${index}\\pi}{12}\\)`;
+    MathJax.typeset();
+    if (index > 0) elements.back.style.visibility = 'visible';
 }
 
 export function getInputValue(id) {

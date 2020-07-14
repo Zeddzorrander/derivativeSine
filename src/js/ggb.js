@@ -12,6 +12,12 @@ export function updateGGB(slope, index) {
     ggbApplet.setValue('a', index * Math.PI / 12);
 }
 
+export function deleteSlope(index) {
+    index += 1;
+    ggbApplet2.deleteObject(`C_${index}`);
+    ggbApplet.setValue('a', index * Math.PI / 12);
+}
+
 export function setPerspective(text, app) {
     if (app === 1) {
         ggbApplet.setPerspective(text);

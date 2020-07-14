@@ -2,7 +2,7 @@ import { parameters, parameters2, views } from './configGeo';
 // import './intervals'
 import * as ggb from './ggb'
 import '../styles.css'
-import { elements, getInputValue, updateInput, drawTable, clearSlope } from './UI';
+import { elements, getInputValue, updateInput, drawTable, clearSlope, deleteLastSlope } from './UI';
 // import Interval from './intervals';
 
 let ggbApp = new GGBApplet(parameters, '5.0', views);
@@ -24,6 +24,10 @@ class State {
         this.slopes.push(slope);
         this.index = this.slopes.length - 1;
     }
+    removeSlope() {
+        this.slopes.pop();
+        this.index = this.slopes.length -1;
+    }
 }
 
 let ggbState = new State();
@@ -34,6 +38,14 @@ function update() {
     const index = ggbState.index;
     ggb.updateGGB(slope, index);
     updateInput(index, slope);
+    clearSlope();
+}
+
+function back() {
+    ggbState.removeSlope();
+    const index = ggbState.index;
+    ggb.deleteSlope(index);
+    deleteLastSlope(index);
     clearSlope();
 }
 
@@ -51,5 +63,7 @@ window.onload = function() {
     elements.next.addEventListener('click', update);
     elements.slope.onkeypress = handleKeyPress;
     drawTable(ggbState.xValues);
+    elements.back.addEventListener('click', back);
+    elements.back.style.visibility = 'hidden';
 
 }
