@@ -2,7 +2,7 @@ import { parameters, parameters2, views } from './configGeo';
 // import './intervals'
 import * as ggb from './ggb'
 import '../styles.css'
-import { elements, getInputValue, updateInput, drawTable, deleteLastSlope, updateInput2, resetDOM } from './UI';
+import { elements, getInputValue, updateInput, drawTable, deleteLastSlope, updateInput2, resetDOM, updateUICorrect, updateUIIncorrect } from './UI';
 // import Interval from './intervals';
 
 let ggbApp = new GGBApplet(parameters, '5.0', views);
@@ -83,6 +83,30 @@ function addGuess() {
 
 }
 
+function graphDerivative() {
+    // get input from user
+    let derivative = getInputValue('derivative');
+
+    // get actual derivative from ggb1 and trim to just the function
+    let corDer = ggb.getDerivative();
+    let index = corDer.indexOf('=');
+    corDer = corDer.slice(index + 1);
+
+    // graph the user entered guess, grab its value from ggb2, and trim to just function
+    let ggbDerivative = ggb.graphDerivativeGuess(derivative);
+    let index2 = ggbDerivative.indexOf('=');
+    ggbDerivative = ggbDerivative.slice(index2 + 1);
+
+    // compare correct derivative with user entered derivative to determine what to do with UI
+    if (ggbDerivative === corDer) {
+        //add correct feedback before table of values and remove all other
+        updateUICorrect();
+    } else {
+        //add incorrect feedback before table of values with ability to add next pair
+        updateUIIncorrect();
+    }
+}
+
 function handleKeyPress(e) {
     if (e.keyCode === 13 && e.target.id === 'slope') {
         e.preventDefault();
@@ -101,12 +125,13 @@ window.onload = function() {
     elements.submit.addEventListener('click', updateXval);
     elements.deletePair.addEventListener('click', removePair);
     elements.guess.addEventListener('click', addGuess);
+    elements.submitDerivative.addEventListener('click', graphDerivative)
     elements.xVal.onkeypress = handleKeyPress;
     elements.slope.onkeypress = handleKeyPress;
     drawTable(ggbState.xValues);
-    // elements.back.addEventListener('click', back);
     elements.deletePair.style.visibility = 'hidden';
     elements.p_input2.style.display = 'none';
     elements.p_buttons.style.display = 'none';
-    // elements.guess.style.visibility = 'hidden';
+    elements.p_correct.style.display = 'none';
+    elements.p_feedback.style.display = 'none';
 }

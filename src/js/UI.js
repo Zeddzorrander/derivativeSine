@@ -11,7 +11,13 @@ export const elements = {
     p_buttons: document.getElementById('p_buttons'),
     submit: document.getElementById('submit'),
     deletePair: document.getElementById('deletePair'),
-    guess: document.getElementById('guess')
+    guess: document.getElementById('guess'), 
+    p_guessInput: document.getElementById('p_guessInput'),
+    derivative: document.getElementById('derivative'),
+    submitDerivative: document.getElementById('submitDerivative'), 
+    h3_input: document.getElementById('h3_input'),
+    p_correct: document.getElementById('p_correct'),
+    p_feedback: document.getElementById('p_feedback')
 }
 
 export function updateInput2(xVal, index) {
@@ -89,6 +95,26 @@ export function resetDOM() {
     elements.p_buttons.style.display = 'none';
     clearInput('xVal');
     setFocus('xVal');
+}
+
+export function updateUIIncorrect() {
+    elements.p_input1.style.display = 'block';
+    elements.p_input2.style.display = 'none';
+    elements.p_input2.style.display = 'none';
+    elements.p_guessInput.style.display = 'none';
+    elements.p_correct.style.display = 'none';
+    elements.p_feedback.style.display = 'block';
+    elements.p_feedback.innerHTML = `That is not correct.  Try entering more x-value - slope pairs.`
+}
+
+export function updateUICorrect() {
+    elements.h3_input.innerHTML = 'Correct!!';
+    elements.p_input1.style.display = 'none';
+    elements.p_input2.style.display = 'none';
+    elements.p_input2.style.display = 'none';
+    elements.p_guessInput.style.display = 'none';
+    elements.p_correct.style.display = 'block';
+
 }
 
 function clearInput(id) {

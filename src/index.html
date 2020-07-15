@@ -44,11 +44,17 @@
                         <p id="p_buttons">
                             <button id="guess">Guess</button>
                         </p>
+                        <p id="p_guessInput">
+                            Enter your guess: \(f'(x)=\) <input id="derivative" placeholder="enter derivative function" type="text"> <br>
+                            <button id="submitDerivative">Submit Derivative</button>
+                        </p>
+                        <p id="p_correct">You have correctly determined that \(\dfrac{d}{dx}\sin(x) = \cos(x)\)</p>
 
                     </section>
                     <section class="output" id="feedback">
                         <h3>Feedback</h3>
-                        <p id="p_feedback">
+                        <p id="p_feedback"></p>
+                        <p id="table">
                             <table>
                                 <thead>
                                     <th>\(x\)</th>

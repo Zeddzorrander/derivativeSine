@@ -25,6 +25,22 @@ export function deleteSlope(index, xVal) {
     ggbApplet.setValue('a', xVal);
 }
 
+export function graphDerivativeGuess(derivative) {
+    ggbApplet2.evalCommand(`h(x) = ${derivative}`);
+    ggbApplet2.setColor('h', 255, 0, 0);
+    ggbApplet2.setLineThickness('h', 7);
+    ggbApplet2.setCaption('h', `$f'(x)=${derivative}$`);
+    ggbApplet2.setLabelStyle('h', 3);
+    ggbApplet2.setLabelVisible('h', true);
+    return ggbApplet2.getValueString('h');
+}
+
+export function getDerivative() {
+    ggbApplet.evalCommand(`f'(x)`);
+    ggbApplet.setVisible(`f'`, false);
+    return ggbApplet.getValueString(`f'`);
+}
+
 function getRoundedValue(obj, places) {
     let mult = 10**places;
     return Math.round(mult * ggbApplet.getValue(obj)) / mult;
