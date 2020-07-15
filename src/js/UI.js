@@ -9,25 +9,29 @@ export const elements = {
     back: document.getElementById('back'),
     p_input1: document.getElementById('p_input1'),
     p_input2: document.getElementById('p_input2'),
-    submit: document.getElementById('submit')
+    p_buttons: document.getElementById('p_buttons'),
+    submit: document.getElementById('submit'),
+    deletePair: document.getElementById('deletePair'),
+    guess: document.getElementById('guess')
 }
 
 export function updateInput2(xVal, index) {
     // toggle input paragraphs
     elements.p_input1.style.display = 'none';
     elements.p_input2.style.display = 'block';
-
+    elements.p_buttons.style.display = 'none';
+    
     // update the span showing what x-value we are finding the slope at
     elements.xInput.innerHTML = `\\(x = ${xVal}\\)`;
     MathJax.typeset();
-
+    
     // prepare UI for new entry
     clearInput('slope');
     setFocus('slope');
-
+    
     // add the x-value to the table
     addRow(xVal, index);
-
+    
     // toggle back button if there are any previous entries
     // if (index > 0) elements.back.style.visibility = 'visible';
 }
@@ -36,17 +40,17 @@ export function updateInput(index, slope) {
     // toggle input paragraphs
     elements.p_input2.style.display = 'none';
     elements.p_input1.style.display = 'block';
-
+    if (index >= 0) elements.p_buttons.style.display = 'block';
     // prepare input boxes for new entries
     clearInput('xVal');
     setFocus('xVal');
-
+    
     // add slope to the table
     let yCell = document.getElementById(`y${index}`);
     let newText = document.createTextNode(slope);
     yCell.appendChild(newText);
     index+=1;
-
+    
     // set 
     if (index > 0) elements.back.style.visibility = 'visible';
 }
@@ -77,6 +81,15 @@ export function drawTable(xVals) {
     xVals.forEach((el, index) => {
         addRow(el, index);
     });
+}
+
+export function resetDOM() {
+    document.getElementById('tbody').deleteRow(-1);
+    elements.p_input1.style.display = 'block';
+    elements.p_input2.style.display = 'none';
+    elements.p_buttons.style.display = 'none';
+    clearInput('xVal');
+    setFocus('xVal');
 }
 
 function clearInput(id) {

@@ -2,7 +2,7 @@ import { parameters, parameters2, views } from './configGeo';
 // import './intervals'
 import * as ggb from './ggb'
 import '../styles.css'
-import { elements, getInputValue, updateInput, drawTable, deleteLastSlope, updateInput2 } from './UI';
+import { elements, getInputValue, updateInput, drawTable, deleteLastSlope, updateInput2, resetDOM } from './UI';
 // import Interval from './intervals';
 
 let ggbApp = new GGBApplet(parameters, '5.0', views);
@@ -66,6 +66,23 @@ function back() {
     deleteLastSlope(index, xVal);
 }
 
+function removePair() {
+    //remove xVal and slope from state
+    ggbState.removeXval();
+    ggbState.removeSlope();
+    const index = ggbState.index;
+    
+    //remove point from GGB2
+    ggb.deleteSlope(index, xVal);
+
+    resetDOM()
+    
+}
+
+function addGuess() {
+
+}
+
 function handleKeyPress(e) {
     if (e.keyCode === 13) {
         e.preventDefault();
@@ -79,11 +96,14 @@ window.onload = function() {
     elements.xVal.focus();
     elements.next.addEventListener('click', updateGeoSlope);
     elements.submit.addEventListener('click', updateXval);
+    elements.deletePair.addEventListener('click', removePair);
+    elements.guess.addEventListener('click', addGuess);
     elements.submit.onkeypress = handleKeyPress;
     elements.slope.onkeypress = handleKeyPress;
     drawTable(ggbState.xValues);
     elements.back.addEventListener('click', back);
     elements.back.style.visibility = 'hidden';
     elements.p_input2.style.display = 'none';
-
+    elements.p_buttons.style.display = 'none';
+    elements.guess.style.visibility = 'hidden';
 }
