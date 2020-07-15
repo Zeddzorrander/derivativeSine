@@ -2,10 +2,23 @@
 
 export const elements = {
     slope: document.getElementById('slope'),
+    xVal: document.getElementById('xVal'),
     next: document.getElementById('next'),
     tableRef: document.getElementById('tbody'),
     xInput: document.getElementById('xInput'),
-    back: document.getElementById('back')
+    back: document.getElementById('back'),
+    p_input1: document.getElementById('p_input1'),
+    p_input2: document.getElementById('p_input2'),
+    submit: document.getElementById('submit')
+}
+
+export function updateInput2(xVal, index) {
+    elements.p_input1.style.display = 'none';
+    elements.p_input2.style.display = 'block';
+    elements.xInput.innerHTML = `\\(x = ${xVal}\\)`;
+    MathJax.typeset();
+    addRow(xVal, index);
+    if (index > 0) elements.back.style.visibility = 'visible';
 }
 
 export function updateInput(index, slope) {
@@ -13,8 +26,6 @@ export function updateInput(index, slope) {
     let newText = document.createTextNode(slope);
     yCell.appendChild(newText);
     index+=1;
-    elements.xInput.innerHTML = `\\(\\dfrac{${index}\\pi}{12}\\)`;
-    MathJax.typeset();
     if (index > 0) elements.back.style.visibility = 'visible';
 }
 
@@ -25,7 +36,6 @@ export function deleteLastSlope(index) {
     yCell.innerHTML = '';
     elements.xInput.innerHTML = `\\(\\dfrac{${index}\\pi}{12}\\)`;
     MathJax.typeset();
-    if (index > 0) elements.back.style.visibility = 'visible';
 }
 
 export function getInputValue(id) {
@@ -51,6 +61,7 @@ function addRow(xVal, index) {
   
     // Insert a cell in the row at index 0
     let newCell = newRow.insertCell(0);
+    newCell.id = `x${index}`;
     let newCell2 = newRow.insertCell(1);
     newCell2.id = `y${index}`;
   

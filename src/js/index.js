@@ -2,7 +2,7 @@ import { parameters, parameters2, views } from './configGeo';
 // import './intervals'
 import * as ggb from './ggb'
 import '../styles.css'
-import { elements, getInputValue, updateInput, drawTable, clearSlope, deleteLastSlope } from './UI';
+import { elements, getInputValue, updateInput, drawTable, clearSlope, deleteLastSlope, updateInput2 } from './UI';
 // import Interval from './intervals';
 
 let ggbApp = new GGBApplet(parameters, '5.0', views);
@@ -13,12 +13,12 @@ class State {
         this.xValues = [];
         this.index = 0;
         this.slopes = [];
-        this.popXvalues();
+        this.points = [];
     }
-    popXvalues() {
-        for (let i = 0; i < 24; i++) {
-            this.xValues.push(Math.round(100*(i * Math.PI / 12)) / 100);
-        }
+    
+    addXval(xVal) {
+        this.xValues.push(xVal);
+        this.index = this.xValues.length - 1;
     }
     addSlope(slope) {
         this.slopes.push(slope);
@@ -28,13 +28,29 @@ class State {
         this.slopes.pop();
         this.index = this.slopes.length -1;
     }
+    removeXval() {
+        this.xValues.pop();
+        this.index = this.xValues.length - 1;
+    }
+    addPoint(index) {
+        this.points.push({x: this.xValues[index], y: this.slopes[index]});
+    }
 }
 
 let ggbState = new State();
 
-function update() {
+function updateXval() {
+    let xVal = getInputValue('xVal');
+    xVal = ggb.parseEntry(xVal);
+    ggbState.addXval(xVal);
+    const index = ggbState.index;
+    ggb.updateGGBa(xVal);
+    updateInput2(xVal, index);
+}
+
+function updateGeoTable() {
     let slope = getInputValue('slope');
-    slope = ggb.parseSlope(slope);
+    slope = ggb.parseEntry(slope);
     ggbState.addSlope(slope);
     const index = ggbState.index;
     ggb.updateGGB(slope, index);
@@ -61,10 +77,13 @@ window.onload = function() {
     ggbApp.inject('ggbApplet', 'preferHTML5');
     ggbApp2.inject('ggbApplet2', 'preferHTML5');
     elements.slope.focus();
-    elements.next.addEventListener('click', update);
+    elements.next.addEventListener('click', updateGeoTable);
+    elements.submit.addEventListener('click', updateXval);
+    elements.submit.onkeypress = handleKeyPress;
     elements.slope.onkeypress = handleKeyPress;
     drawTable(ggbState.xValues);
     elements.back.addEventListener('click', back);
     elements.back.style.visibility = 'hidden';
+    elements.p_input2.style.display = 'none';
 
 }
