@@ -6,7 +6,6 @@ export const elements = {
     next: document.getElementById('next'),
     tableRef: document.getElementById('tbody'),
     xInput: document.getElementById('xInput'),
-    back: document.getElementById('back'),
     p_input1: document.getElementById('p_input1'),
     p_input2: document.getElementById('p_input2'),
     p_buttons: document.getElementById('p_buttons'),
@@ -40,7 +39,6 @@ export function updateInput(index, slope) {
     // toggle input paragraphs
     elements.p_input2.style.display = 'none';
     elements.p_input1.style.display = 'block';
-    if (index >= 0) elements.p_buttons.style.display = 'block';
     // prepare input boxes for new entries
     clearInput('xVal');
     setFocus('xVal');
@@ -52,12 +50,13 @@ export function updateInput(index, slope) {
     index+=1;
     
     // set 
-    if (index > 0) elements.back.style.visibility = 'visible';
+    if (index > 0) elements.deletePair.style.visibility = 'visible';
+    if (index >= 5) elements.p_buttons.style.display = 'block';
 }
 
 export function deleteLastSlope(index, xVal) {
     // toggle back button if no previous entries
-    if (index < 0) elements.back.style.visibility = 'hidden';
+    if (index < 0) elements.deletePair.style.visibility = 'hidden';
     index += 1;
 
     //delete last slope from the table

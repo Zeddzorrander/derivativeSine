@@ -101,9 +101,9 @@ window.onload = function() {
     elements.submit.onkeypress = handleKeyPress;
     elements.slope.onkeypress = handleKeyPress;
     drawTable(ggbState.xValues);
-    elements.back.addEventListener('click', back);
-    elements.back.style.visibility = 'hidden';
+    // elements.back.addEventListener('click', back);
+    elements.deletePair.style.visibility = 'hidden';
     elements.p_input2.style.display = 'none';
     elements.p_buttons.style.display = 'none';
-    elements.guess.style.visibility = 'hidden';
+    // elements.guess.style.visibility = 'hidden';
 }
