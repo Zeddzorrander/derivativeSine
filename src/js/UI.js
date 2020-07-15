@@ -16,12 +16,18 @@ export function updateInput2(xVal, index) {
     elements.p_input1.style.display = 'none';
     elements.p_input2.style.display = 'block';
     elements.xInput.innerHTML = `\\(x = ${xVal}\\)`;
+    clearInput('slope');
+    setFocus('slope');
     MathJax.typeset();
     addRow(xVal, index);
     if (index > 0) elements.back.style.visibility = 'visible';
 }
 
 export function updateInput(index, slope) {
+    elements.p_input2.style.display = 'none';
+    elements.p_input1.style.display = 'block';
+    clearInput('xVal');
+    setFocus('xVal');
     let yCell = document.getElementById(`y${index}`);
     let newText = document.createTextNode(slope);
     yCell.appendChild(newText);
@@ -48,9 +54,14 @@ export function drawTable(xVals) {
     });
 }
 
-export function clearSlope() {
-    elements.slope.value = '';
-    elements.slope.focus();
+function clearInput(id) {
+    const input = document.getElementById(id)
+    input.value = '';
+}
+
+function setFocus(id) {
+    const input = document.getElementById(id);
+    input.focus();
 }
 
 function addRow(xVal, index) {
