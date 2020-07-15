@@ -61,9 +61,9 @@ function updateGeoSlope() {
 function back() {
     ggbState.removeSlope();
     const index = ggbState.index;
-    ggb.deleteSlope(index);
-    deleteLastSlope(index);
-    clearSlope();
+    const xVal = ggbState.xValues[index + 1];
+    ggb.deleteSlope(index, xVal);
+    deleteLastSlope(index, xVal);
 }
 
 function handleKeyPress(e) {

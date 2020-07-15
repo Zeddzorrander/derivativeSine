@@ -19,10 +19,10 @@ export function parseEntry(value) {
     ggbApplet2.deleteObject('temp');
     return xVal;
 }
-export function deleteSlope(index) {
+export function deleteSlope(index, xVal) {
     index += 1;
     ggbApplet2.deleteObject(`C_${index}`);
-    ggbApplet.setValue('a', index * Math.PI / 12);
+    ggbApplet.setValue('a', xVal);
 }
 
 function getRoundedValue(obj, places) {

@@ -13,34 +13,59 @@ export const elements = {
 }
 
 export function updateInput2(xVal, index) {
+    // toggle input paragraphs
     elements.p_input1.style.display = 'none';
     elements.p_input2.style.display = 'block';
+
+    // update the span showing what x-value we are finding the slope at
     elements.xInput.innerHTML = `\\(x = ${xVal}\\)`;
+    MathJax.typeset();
+
+    // prepare UI for new entry
     clearInput('slope');
     setFocus('slope');
-    MathJax.typeset();
+
+    // add the x-value to the table
     addRow(xVal, index);
-    if (index > 0) elements.back.style.visibility = 'visible';
+
+    // toggle back button if there are any previous entries
+    // if (index > 0) elements.back.style.visibility = 'visible';
 }
 
 export function updateInput(index, slope) {
+    // toggle input paragraphs
     elements.p_input2.style.display = 'none';
     elements.p_input1.style.display = 'block';
+
+    // prepare input boxes for new entries
     clearInput('xVal');
     setFocus('xVal');
+
+    // add slope to the table
     let yCell = document.getElementById(`y${index}`);
     let newText = document.createTextNode(slope);
     yCell.appendChild(newText);
     index+=1;
+
+    // set 
     if (index > 0) elements.back.style.visibility = 'visible';
 }
 
-export function deleteLastSlope(index) {
+export function deleteLastSlope(index, xVal) {
+    // toggle back button if no previous entries
     if (index < 0) elements.back.style.visibility = 'hidden';
     index += 1;
+
+    //delete last slope from the table
     let yCell = document.getElementById(`y${index}`);
     yCell.innerHTML = '';
-    elements.xInput.innerHTML = `\\(\\dfrac{${index}\\pi}{12}\\)`;
+
+    //reset the dom for a new slope entry
+    elements.p_input1.style.display = 'none';
+    elements.p_input2.style.display = 'block';
+    clearInput('slope');
+    setFocus('slope');
+    elements.xInput.innerHTML = `\\(x = ${xVal}\\)`;
     MathJax.typeset();
 }
 
