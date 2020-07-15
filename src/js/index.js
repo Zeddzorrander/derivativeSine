@@ -84,9 +84,12 @@ function addGuess() {
 }
 
 function handleKeyPress(e) {
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && e.target.id === 'slope') {
         e.preventDefault();
         elements.next.click();
+    } else if (e.keyCode === 13 && e.target.id === 'xVal') {
+        e.preventDefault();
+        elements.submit.click();
     }
 }
 
@@ -98,7 +101,7 @@ window.onload = function() {
     elements.submit.addEventListener('click', updateXval);
     elements.deletePair.addEventListener('click', removePair);
     elements.guess.addEventListener('click', addGuess);
-    elements.submit.onkeypress = handleKeyPress;
+    elements.xVal.onkeypress = handleKeyPress;
     elements.slope.onkeypress = handleKeyPress;
     drawTable(ggbState.xValues);
     // elements.back.addEventListener('click', back);
