@@ -10,22 +10,26 @@ export function updateGGB(slope, index) {
 }
 
 export function updateGGBa(xVal) {
+    // if (ggbApplet.getVisible(`f'`)) ggbApplet.setVisible(`f'`, false);
     ggbApplet.evalCommand(`a = ${xVal}`);
 }
 
 export function parseEntry(value) {
+    // if (ggbApplet.getVisible(`f'`)) ggbApplet.setVisible(`f'`, false);
     ggbApplet.evalCommand(`temp = ${value}`);
     const xVal = getRoundedValue('temp', 2);
     ggbApplet2.deleteObject('temp');
     return xVal;
 }
 export function deleteSlope(index, xVal) {
+    // if (ggbApplet.getVisible(`f'`)) ggbApplet.setVisible(`f'`, false);
     index += 1;
     ggbApplet2.deleteObject(`C_${index}`);
     ggbApplet.setValue('a', xVal);
 }
 
 export function graphDerivativeGuess(derivative) {
+    // if (ggbApplet.getVisible(`f'`)) ggbApplet.setVisible(`f'`, false);
     ggbApplet2.evalCommand(`h(x) = ${derivative}`);
     ggbApplet2.setColor('h', 255, 0, 0);
     ggbApplet2.setLineThickness('h', 7);
@@ -38,7 +42,12 @@ export function graphDerivativeGuess(derivative) {
 export function getDerivative() {
     ggbApplet.evalCommand(`f'(x)`);
     ggbApplet.setVisible(`f'`, false);
+    // if (ggbApplet.getVisible(`f'`)) ggbApplet.setVisible(`f'`, false);
     return ggbApplet.getValueString(`f'`);
+}
+
+export function deleteObject(obj) {
+    ggbApplet.deleteObject(obj);
 }
 
 function getRoundedValue(obj, places) {

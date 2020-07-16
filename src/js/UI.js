@@ -88,19 +88,24 @@ export function drawTable(xVals) {
     });
 }
 
-export function resetDOM() {
+export function resetDOM(index) {
     document.getElementById('tbody').deleteRow(-1);
     elements.p_input1.style.display = 'block';
     elements.p_input2.style.display = 'none';
-    elements.p_buttons.style.display = 'none';
+    if(index >=4) {
+        elements.p_buttons.style.display = 'block';
+    } else elements.p_buttons.style.display = 'none';
     clearInput('xVal');
     setFocus('xVal');
 }
 
-export function updateUIIncorrect() {
+export function updateUIIncorrect(index) {
+    elements.h3_input.innerHTML = 'Slope Input';
     elements.p_input1.style.display = 'block';
     elements.p_input2.style.display = 'none';
-    elements.p_input2.style.display = 'none';
+    if(index >=4) {
+        elements.p_buttons.style.display = 'block';
+    } else elements.p_buttons.style.display = 'none';
     elements.p_guessInput.style.display = 'none';
     elements.p_correct.style.display = 'none';
     elements.p_feedback.style.display = 'block';
@@ -111,9 +116,18 @@ export function updateUICorrect() {
     elements.h3_input.innerHTML = 'Correct!!';
     elements.p_input1.style.display = 'none';
     elements.p_input2.style.display = 'none';
-    elements.p_input2.style.display = 'none';
+    elements.p_buttons.style.display = 'none';
     elements.p_guessInput.style.display = 'none';
     elements.p_correct.style.display = 'block';
+
+}
+
+export function updateUIGuess() {
+    elements.h3_input.innerHTML = 'Guess Derivative';
+    elements.p_input1.style.display = 'none';
+    elements.p_input2.style.display = 'none';
+    elements.p_buttons.style.display = 'none';
+    elements.p_guessInput.style.display = 'block';
 
 }
 

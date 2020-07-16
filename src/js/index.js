@@ -2,7 +2,7 @@ import { parameters, parameters2, views } from './configGeo';
 // import './intervals'
 import * as ggb from './ggb'
 import '../styles.css'
-import { elements, getInputValue, updateInput, drawTable, deleteLastSlope, updateInput2, resetDOM, updateUICorrect, updateUIIncorrect } from './UI';
+import { elements, getInputValue, updateInput, drawTable, deleteLastSlope, updateInput2, resetDOM, updateUICorrect, updateUIIncorrect, updateUIGuess } from './UI';
 // import Interval from './intervals';
 
 let ggbApp = new GGBApplet(parameters, '5.0', views);
@@ -58,13 +58,13 @@ function updateGeoSlope() {
     updateInput(index, slope);
 }
 
-function back() {
-    ggbState.removeSlope();
-    const index = ggbState.index;
-    const xVal = ggbState.xValues[index + 1];
-    ggb.deleteSlope(index, xVal);
-    deleteLastSlope(index, xVal);
-}
+// function back() {
+//     ggbState.removeSlope();
+//     const index = ggbState.index;
+//     const xVal = ggbState.xValues[index + 1];
+//     ggb.deleteSlope(index, xVal);
+//     deleteLastSlope(index, xVal);
+// }
 
 function removePair() {
     //remove xVal and slope from state
@@ -75,12 +75,12 @@ function removePair() {
     //remove point from GGB2
     ggb.deleteSlope(index, xVal);
 
-    resetDOM()
+    resetDOM(index)
     
 }
 
 function addGuess() {
-
+    updateUIGuess();
 }
 
 function graphDerivative() {
@@ -91,6 +91,7 @@ function graphDerivative() {
     let corDer = ggb.getDerivative();
     let index = corDer.indexOf('=');
     corDer = corDer.slice(index + 1);
+    ggb.deleteObject(`f'`);
 
     // graph the user entered guess, grab its value from ggb2, and trim to just function
     let ggbDerivative = ggb.graphDerivativeGuess(derivative);
@@ -103,7 +104,7 @@ function graphDerivative() {
         updateUICorrect();
     } else {
         //add incorrect feedback before table of values with ability to add next pair
-        updateUIIncorrect();
+        updateUIIncorrect(ggbState.index);
     }
 }
 
@@ -134,4 +135,5 @@ window.onload = function() {
     elements.p_buttons.style.display = 'none';
     elements.p_correct.style.display = 'none';
     elements.p_feedback.style.display = 'none';
+    elements.p_guessInput.style.display = 'none';
 }
