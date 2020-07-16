@@ -99,7 +99,7 @@ export function resetDOM(index) {
     setFocus('xVal');
 }
 
-export function updateUIIncorrect(index) {
+export function updateUIIncorrect(index, test) {
     elements.h3_input.innerHTML = 'Slope Input';
     elements.p_input1.style.display = 'block';
     elements.p_input2.style.display = 'none';
@@ -109,7 +109,9 @@ export function updateUIIncorrect(index) {
     elements.p_guessInput.style.display = 'none';
     elements.p_correct.style.display = 'none';
     elements.p_feedback.style.display = 'block';
-    elements.p_feedback.innerHTML = `That is not correct.  Try entering more x-value - slope pairs.`
+    if (test) {
+        elements.p_feedback.innerHTML = `That is not correct.  Try entering more x-value - slope pairs.`
+    }
 }
 
 export function updateUICorrect() {

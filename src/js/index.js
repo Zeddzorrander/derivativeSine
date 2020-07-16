@@ -40,22 +40,26 @@ class State {
 let ggbState = new State();
 
 function updateXval() {
-    let xVal = getInputValue('xVal');
-    xVal = ggb.parseEntry(xVal);
-    ggbState.addXval(xVal);
-    const index = ggbState.index;
-    ggb.updateGGBa(xVal);
-    updateInput2(xVal, index);
+    let xValInput = getInputValue('xVal');
+    let {xVal, test} = ggb.parseEntry(xValInput);
+    if (test) {
+        ggbState.addXval(xVal);
+        const index = ggbState.index;
+        ggb.updateGGBa(xVal);
+        updateInput2(xVal, index);
+    } else alert(`"${xValInput}" is not a valid entry.  Please try again.`);
 }
 
 function updateGeoSlope() {
-    let slope = getInputValue('slope');
-    slope = ggb.parseEntry(slope);
-    ggbState.addSlope(slope);
-    const index = ggbState.index;
-    ggbState.addPoint(index);
-    ggb.updateGGB(slope, index);
-    updateInput(index, slope);
+    let slopeInput = getInputValue('slope');
+    let {slope, test} = ggb.parseEntry(slopeInput);
+    if (test) {
+        ggbState.addSlope(slope);
+        const index = ggbState.index;
+        ggbState.addPoint(index);
+        ggb.updateGGB(slope, index);
+        updateInput(index, slope);
+    } else alert(`"${xValInput}" is not a valid entry.  Please try again.`);
 }
 
 // function back() {
@@ -84,28 +88,38 @@ function addGuess() {
 }
 
 function graphDerivative() {
-    // get input from user
-    let derivative = getInputValue('derivative');
-
     // get actual derivative from ggb1 and trim to just the function
     let corDer = ggb.getDerivative();
     let index = corDer.indexOf('=');
     corDer = corDer.slice(index + 1);
     ggb.deleteObject(`f'`);
 
-    // graph the user entered guess, grab its value from ggb2, and trim to just function
-    let ggbDerivative = ggb.graphDerivativeGuess(derivative);
-    let index2 = ggbDerivative.indexOf('=');
-    ggbDerivative = ggbDerivative.slice(index2 + 1);
+    // get input from user and test for validity
+    let derivativeInput = getInputValue('derivative');
+    let {derivative, test} = ggb.parseEntry(derivativeInput)
+    
 
-    // compare correct derivative with user entered derivative to determine what to do with UI
-    if (ggbDerivative === corDer) {
-        //add correct feedback before table of values and remove all other
-        updateUICorrect();
+    if (test) {
+        // graph the user entered guess, grab its value from ggb2, and trim to just function
+        let ggbDerivative = ggb.graphDerivativeGuess(derivative);
+        let index2 = ggbDerivative.indexOf('=');
+        ggbDerivative = ggbDerivative.slice(index2 + 1);
+        // compare correct derivative with user entered derivative to determine what to do with UI
+        if (ggbDerivative === corDer) {
+            //add correct feedback before table of values and remove all other
+            updateUICorrect();
+        } else {
+            //add incorrect feedback before table of values with ability to add next pair
+            updateUIIncorrect(ggbState.index, test);
+        }
     } else {
-        //add incorrect feedback before table of values with ability to add next pair
-        updateUIIncorrect(ggbState.index);
-    }
+        alert(`"${xValInput}" is not a valid entry.  Please try again.`);
+        // reset the DOM back to guess entry
+        updateUIIncorrect(ggbState.index, test);
+    } 
+
+
+
 }
 
 function handleKeyPress(e) {
