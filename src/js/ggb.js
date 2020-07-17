@@ -11,11 +11,11 @@ export function updateGGBa(xVal) {
     ggbApplet.evalCommand(`a = ${xVal}`);
 }
 
-export function parseEntry(value) {
+export function parseValue(value) {
     let test = ggbApplet.evalCommand(`temp = ${value}`);
     const parseVal = getRoundedValue('temp', 2);
     ggbApplet2.deleteObject('temp');
-    return {parseVal, test};
+    return [parseVal, test];
 }
 export function deleteSlope(index, xVal) {
     index += 1;
@@ -23,8 +23,15 @@ export function deleteSlope(index, xVal) {
     ggbApplet.setValue('a', xVal);
 }
 
+export function parseFunction(func) {
+    let test = ggbApplet2.evalCommand(`temp(x) = ${func}`);
+    let parseFunc = ggbApplet2.getValueString('temp');
+    ggbApplet2.deleteObject('temp');
+    return [parseFunc, test];
+}
+
 export function graphDerivativeGuess(derivative) {
-    ggbApplet2.evalCommand(`h(x) = ${derivative}`);
+    let test = ggbApplet2.evalCommand(`h(x) = ${derivative}`);
     ggbApplet2.setColor('h', 255, 0, 0);
     ggbApplet2.setLineThickness('h', 7);
     ggbApplet2.setCaption('h', `$f'(x)=${derivative}$`);

@@ -25,6 +25,7 @@ export function updateInput2(xVal, index) {
     elements.p_input1.style.display = 'none';
     elements.p_input2.style.display = 'block';
     elements.p_buttons.style.display = 'none';
+    elements.p_feedback.style.display = 'none';
     
     // update the span showing what x-value we are finding the slope at
     elements.xInput.innerHTML = `\\(x = ${xVal}\\)`;
@@ -44,6 +45,7 @@ export function updateInput2(xVal, index) {
 export function updateInput(index, slope) {
     // toggle input paragraphs
     elements.p_input2.style.display = 'none';
+    elements.p_feedback.style.display = 'none';
     elements.p_input1.style.display = 'block';
     // prepare input boxes for new entries
     clearInput('xVal');
@@ -92,6 +94,7 @@ export function resetDOM(index) {
     document.getElementById('tbody').deleteRow(-1);
     elements.p_input1.style.display = 'block';
     elements.p_input2.style.display = 'none';
+    elements.p_feedback.style.display = 'none';
     if(index >=4) {
         elements.p_buttons.style.display = 'block';
     } else elements.p_buttons.style.display = 'none';

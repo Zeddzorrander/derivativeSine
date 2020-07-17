@@ -41,25 +41,28 @@ let ggbState = new State();
 
 function updateXval() {
     let xValInput = getInputValue('xVal');
-    let {xVal, test} = ggb.parseEntry(xValInput);
+    let [xVal, test] = ggb.parseValue(xValInput);
     if (test) {
-        ggbState.addXval(xVal);
-        const index = ggbState.index;
-        ggb.updateGGBa(xVal);
-        updateInput2(xVal, index);
+        if (xVal>=0 && xVal<= 2*Math.PI) {
+            ggbState.addXval(xVal);
+            const index = ggbState.index;
+            ggb.updateGGBa(xVal);
+            updateInput2(xVal, index);
+
+        } else alert(`Please enter a value on the specified interval.`);
     } else alert(`"${xValInput}" is not a valid entry.  Please try again.`);
 }
 
 function updateGeoSlope() {
     let slopeInput = getInputValue('slope');
-    let {slope, test} = ggb.parseEntry(slopeInput);
+    let [slope, test] = ggb.parseValue(slopeInput);
     if (test) {
         ggbState.addSlope(slope);
         const index = ggbState.index;
         ggbState.addPoint(index);
         ggb.updateGGB(slope, index);
         updateInput(index, slope);
-    } else alert(`"${xValInput}" is not a valid entry.  Please try again.`);
+    } else alert(`"${slopeInput}" is not a valid entry.  Please try again.`);
 }
 
 // function back() {
@@ -96,16 +99,17 @@ function graphDerivative() {
 
     // get input from user and test for validity
     let derivativeInput = getInputValue('derivative');
-    let {derivative, test} = ggb.parseEntry(derivativeInput)
+    let [derivative, test] = ggb.parseFunction(derivativeInput);
+    let index2 = derivative.indexOf('=');
+    derivative = derivative.slice(index2 + 1);
+
     
 
     if (test) {
         // graph the user entered guess, grab its value from ggb2, and trim to just function
-        let ggbDerivative = ggb.graphDerivativeGuess(derivative);
-        let index2 = ggbDerivative.indexOf('=');
-        ggbDerivative = ggbDerivative.slice(index2 + 1);
+        ggb.graphDerivativeGuess(derivative);
         // compare correct derivative with user entered derivative to determine what to do with UI
-        if (ggbDerivative === corDer) {
+        if (derivative === corDer) {
             //add correct feedback before table of values and remove all other
             updateUICorrect();
         } else {
@@ -113,7 +117,7 @@ function graphDerivative() {
             updateUIIncorrect(ggbState.index, test);
         }
     } else {
-        alert(`"${xValInput}" is not a valid entry.  Please try again.`);
+        alert(`"${derivativeInput}" is not a valid entry.  Please try again.`);
         // reset the DOM back to guess entry
         updateUIIncorrect(ggbState.index, test);
     } 
