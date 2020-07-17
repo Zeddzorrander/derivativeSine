@@ -113,7 +113,7 @@ export function updateUIIncorrect(index, test) {
     elements.p_correct.style.display = 'none';
     elements.p_feedback.style.display = 'block';
     if (test) {
-        elements.p_feedback.innerHTML = `That is not correct.  Try entering more x-value - slope pairs.`
+        elements.p_feedback.innerHTML = `<strong>That is not correct.  Try entering more x-value - slope pairs.</strong>`
     }
 }
 
@@ -132,6 +132,7 @@ export function updateUIGuess() {
     elements.p_input1.style.display = 'none';
     elements.p_input2.style.display = 'none';
     elements.p_buttons.style.display = 'none';
+    elements.p_feedback.style.display = 'none';
     elements.p_guessInput.style.display = 'block';
 
 }

@@ -19,7 +19,7 @@ export const parameters = {
     "capturingThreshold":3,
     // add code here to run when the applet starts
     "appletOnLoad":function(api){
-                                    // api.setPerspective('GS');
+        api.setAxisLabels(1, 'x', `f`);
                                 },
     "showFullscreenButton":false,
     "scale":1,
@@ -67,7 +67,7 @@ export const parameters2 = {
     "capturingThreshold":3,
     // add code here to run when the applet starts
     "appletOnLoad":function(api){
-                                    // api.setPerspective('D');
+                                    api.setAxisLabels(1, 'x', `f'`);
                                 },
     "showFullscreenButton":false,
     "scale":1,

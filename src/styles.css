@@ -105,6 +105,10 @@ textarea {
     border: 2px solid black;
 }
 
+#p_feedback {
+    color: red;
+}
+
 @media screen and (min-width: 1075px) {
     .wrapper {
         display: grid;
